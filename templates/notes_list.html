@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block header %}
+  {% if single_course %}
+    Notes: {{ sub_header }}
+  {% elif single_note %}
+    {{ note.title }}
+  {% else %}
+    Notes
+  {% endif %}
+{% endblock %}
+
+{% block notes %}active{% endblock %}
+
+{% block edit %}
+{% if single_note %}
+  {% url "Notes:update_note" note.course.term.term_slug note.course.course_slug note.note_slug %}
+{% elif single_course %}
+  {% url "Notes:notes_of_course_edit" slug=term_slug course_id=course_id %}
+{% else %}
+  {% url "Notes:note_edit" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<style media="screen">
+  .add-note-to-course{
+    margin: 0px 83%;
+  }
+  .add-note-button{
+    margin: 0px 88.3%;
+  }
+</style>
+
+{% if single_note %}
+
+  {{note.body|safe}}
+
+{% else %}
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Course ID</th>
+      <th scope="col">Date Created</th>
+      <th scope="col">View</th>
+    </tr>
+  </thead>
+
+{% if notes|length == 0 %}
+
+<tbody>
+  <tr>
+    <th scope="row">Lecture 1: Example</th>
+    <td>Example Class</td>
+    <td>January 1, 2019, 12:01 a.m.</td>
+    <td> Open </td>
+  </tr>
+</tbody>
+</table>
+
+<a href="{% url "Notes:notes" %}" class="add-note-button">
+  <input class = "btn btn-primary" type="submit" name="" value="Add note">
+</a>
+
+{% elif single_course %}
+  <tbody>
+    {% for note in notes %}
+    <tr>
+      <th scope="row">{{ note.title }}</th>
+      <td>{{ note.course }}</td>
+      <td>{{ note.created_at }}</td>
+      <td>
+        <a href="{% url "Notes:one_note" note.course.term.term_slug note.course.course_slug note.note_slug %}">
+         Open </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+
+  <a href="{% url "Notes:note_of_course_create" course_id=course_id %}" class="add-note-to-course">
+    <input class = "btn btn-primary" type="submit" name="" value="Add note to this course">
+  </a>
+
+{% else %}
+
+  <tbody>
+    {% for note in notes %}
+    <tr>
+      <th scope="row">{{ note.title }}</th>
+      <td>{{ note.course }}</td>
+      <td>{{ note.created_at }}</td>
+      <td>
+        <a href="{% url "Notes:one_note" note.course.term.term_slug note.course.course_slug note.note_slug %}">
+         Open </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+
+  <a href="{% url "Notes:notes" %}" class="add-note-button">
+    <input class = "btn btn-primary" type="submit" name="" value="Add note">
+  </a>
+
+{% endif %}
+{% endif %}
+
+
+
+{% endblock %}

@@ -1,0 +1,35 @@
+.delete_term{
+  vertical-align:bottom;
+  overflow:visible;
+  font-size:1em;
+  display:inline;
+  margin:0;
+  padding:0;
+  border:0;
+  color:#2C96D4;
+  cursor:pointer;
+}
+
+.delete_course{
+  vertical-align:bottom;
+  overflow:visible;
+  font-size:1em;
+  display:inline;
+  margin:0;
+  padding:0;
+  border:0;
+  color:#2C96D4;
+  cursor:pointer;
+}
+
+.delete_note{
+  vertical-align:bottom;
+  overflow:visible;
+  font-size:1em;
+  display:inline;
+  margin:0;
+  padding:0;
+  border:0;
+  color:#2C96D4;
+  cursor:pointer;
+}

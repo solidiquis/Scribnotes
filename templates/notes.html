@@ -1,0 +1,19 @@
+{% extends "Base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block header %}New Document{% endblock %}
+{% block New %}active{% endblock %}
+
+{% block content %}
+
+<form class="w-25" enctype="multipart/form-data" action="{% url "Notes:notes" %}" method="post">
+  {% csrf_token %}
+    {{ form.media }}
+  {{ form|crispy }}
+  <input class = "btn btn-primary" type="submit" name="" value="Save">
+</form>
+
+<script src="{% static "js/notes.js" %}" charset="utf-8"></script>
+
+{% endblock %}

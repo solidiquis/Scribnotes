@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block term %}active{% endblock %}
+{% block header %}Terms{% endblock %}
+{% block done %}{% url "Notes:term" %}{% endblock %}
+
+{% block content %}
+
+
+<link rel="stylesheet" href="{% static "css/delete.css" %}">
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">School</th>
+      <th scope="col">Year</th>
+      <th scope="col">Term</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  {% if terms|length == 0 %}
+  <tbody>
+    <tr>
+      <th scope="row">Example University</th>
+      <td>1</td>
+      <td>Spring 2019</td>
+      <td>Folder</td>
+    </tr>
+  </tbody>
+  {% else %}
+  <tbody>
+    {% for term in terms %}
+    <tr>
+      <th scope="row">{{ term.school }}</th>
+      <td>{{ term.year }}</td>
+      <td>{{ term.session }}</td>
+      <form class="" action="{% url "Notes:term_delete" term.term_slug %}" method="post">
+        {% csrf_token %}
+        <td><a href="{% url "Notes:term_update" term.term_slug %}">Edit</a> | <input class = "delete_term" name="Submit" type="submit" value="Delete"></td>
+      </form>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+  {% endif %}
+</table>
+
+<form class="w-25" action="{% url "Notes:term_edit" %}" method="post">
+  {% csrf_token %}
+  {{current_term_form|crispy}}
+  <input class = "btn btn-primary" type="submit" name="" value="Submit">
+</form>
+
+<script src="{% static "js/delete.js" %}" charset="utf-8"></script>
+{% endblock %}

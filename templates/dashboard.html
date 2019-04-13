@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block header %}Dashboard{% endblock %}
+{% block dashview %}{% url "api-root" %}{% endblock %}
+{% block dashboard %}active{% endblock %}
+
+{% block content %}
+
+<style media="screen">
+  .buffer{
+    margin: 2px 5px 5px 0px;
+  }
+</style>
+
+    <div class="row">
+    {% for note in notes %}
+        <div class="card-group buffer">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{ note.title }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ note.course }}</h6>
+              <p class="card-text">{{ note.created_at }}</p>
+              <a href="{% url "Notes:one_note" note.course.term.term_slug note.course.course_slug note.note_slug%}" class="card-link">View</a>
+            </div>
+          </div>
+        </div>
+        {% if forloop.counter|divisibleby:4 %}
+            </div>
+            <div class="row">
+        {% endif %}
+    {% endfor %}
+    </div>
+
+{% endblock %}

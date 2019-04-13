@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block course %}active{% endblock %}
+{% block header %}Courses{% endblock %}
+{% block subheader %}{{ term_name }}{% endblock %}
+{% block done %}{% url "Notes:course" %}{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static "css/delete.css" %}">
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Course ID</th>
+      <th scope="col">Term</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for course in courses %}
+    <tr>
+      <th scope="row">{{ course.title }}</th>
+      <td>{{ course.course_code }}</td>
+      <td>{{ course.term }}</td>
+      <form class="w-25" action="{% url "Notes:course_delete" course.course_slug %}" method="post">
+        {% csrf_token %}
+        <td><a href="{% url "Notes:course_update" course.course_slug "SF" %}">Edit</a> | <input class = "delete_course" name="Submit" type="submit" value="Delete"></td>
+      </form>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+<script src="{% static "js/delete.js" %}" charset="utf-8"></script>
+{% endblock %}

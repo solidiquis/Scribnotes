@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block term %}active{% endblock %}
+{% block header %}Terms{% endblock %}
+{% block edit %}{% url "Notes:term_edit" %}{% endblock %}
+
+
+{% block content %}
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">School</th>
+      <th scope="col">Year</th>
+      <th scope="col">Term</th>
+      <th scope="col">Courses</th>
+    </tr>
+  </thead>
+  {% if terms|length == 0 %}
+  <tbody>
+    <tr>
+      <th scope="row">Example University</th>
+      <td>1</td>
+      <td>Spring 2019</td>
+      <td>View</td>
+    </tr>
+  </tbody>
+  {% else %}
+  <tbody>
+    {% for term in terms %}
+    <tr>
+      <th scope="row">{{ term.school }}</th>
+      <td>{{ term.year }}</td>
+      <td>{{ term.session }}</td>
+      <td><a href="{% url "Notes:course" %}{{ term.term_slug }}">View</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  {% endif %}
+</table>
+
+<form class="w-25" action="{% url "Notes:term" %}" method="post">
+  {% csrf_token %}
+  {{form|crispy}}
+  <input class = "btn btn-primary" type="submit" name="" value="Submit">
+</form>
+
+{% endblock %}

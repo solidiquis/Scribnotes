@@ -1,0 +1,21 @@
+{% extends "Base.html" %}
+{% load crispy_forms_tags %}
+
+{% block header%}{{ object.title }}{% endblock %}
+{% block notes %}active{% endblock %}
+{% block cancel %}
+{% url "Notes:one_note" note.course.term.term_slug note.course.course_slug note.note_slug %}
+{% endblock %}
+
+{% block content %}
+
+<form class ="w-25" enctype="multipart/form-data" action="{% url "Notes:update_note" note.course.term.term_slug note.course.course_slug note.note_slug %}" method="post">
+  {% csrf_token %}
+    {{ form.media }}
+  {{ form|crispy }}
+  <input class = "btn btn-primary" type="submit" name="" value="Save">
+
+</form>
+
+
+{% endblock %}

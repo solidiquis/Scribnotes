@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block course %}active{% endblock %}
+{% block header %}Courses{% endblock %}
+{% block cancel %}{% url "Notes:course_term" object.term.term_slug %}{% endblock %}
+
+{% block content %}
+
+<form class="w-25" action="{% url "Notes:course_update" object.course_slug " " %}" method="post">
+  {% csrf_token %}
+  {{form|crispy}}
+  <input class = "btn btn-primary" type="submit" name="" value="Submit">
+</form>
+
+{% endblock %}

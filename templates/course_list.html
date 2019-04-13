@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block course %}active{% endblock %}
+{% block header %}Courses{% endblock %}
+{% block subheader %}{{ term_name }}{% endblock %}
+
+{% block edit %}
+{% if single_term %}
+{% url "Notes:course_edit" %}{{ slug }}
+{% else %}
+{% url "Notes:course_edit" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Course ID</th>
+      <th scope="col">Term</th>
+      <th scope="col">Notes</th>
+    </tr>
+  </thead>
+
+  {% if courses|length == 0 %}
+  <tbody>
+    <tr>
+      <th scope="row">G. Chem (Example)</th>
+      <td>Chem 1A</td>
+      <td>Fall 2019</td>
+      <td>Folder</td>
+    </tr>
+  </tbody>
+
+  {% elif single_term %}
+
+  <tbody>
+    {% for course in courses %}
+    <tr>
+      <th scope="row">{{ course.title }}</th>
+      <td>{{ course.course_code }}</td>
+      <td>{{ course.term }}</td>
+      <td><a href="{% url "Notes:course" %}{{ course.term.term_slug }}/{{ course.course_slug }}">Folder</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+
+  {% else %}
+  <tbody>
+    {% for course in courses %}
+    <tr>
+      <th scope="row">{{ course.title }}</th>
+      <td>{{ course.course_code }}</td>
+      <td>{{ course.term }}</td>
+      <td><a href="{% url "Notes:course" %}{{ course.term.term_slug }}/{{ course.course_slug }}">Folder</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  {% endif %}
+</table>
+
+<form class="w-25"
+      {% if courses|length == 0 and single_term %}
+        action="{% url "Notes:course_term" slug=slug %}"
+      {% elif courses|length == 0 %}
+        action="{% url "Notes:course" %}"
+      {% elif single_term %}
+        action="{% url "Notes:course_term" slug=slug %}"
+      {% else %}
+        action="{% url "Notes:course" %}"
+      {% endif %}
+                            method="post">
+  {% csrf_token %}
+  {{form|crispy}}
+  <input class = "btn btn-primary" type="submit" name="" value="Submit">
+</form>
+
+{% endblock %}

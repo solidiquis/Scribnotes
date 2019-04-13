@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ScribNotes</title>
+
+    {% load staticfiles %}
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+    <!-- bootstrapCDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static "css/base.css" %}">
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet">
+
+  </head>
+  <body>
+
+    {% if user.is_authenticated %}
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a id = "brand" class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url "dashboard" %}">Scribnotes</a>
+      <form class="w-100" action="{% url "Notes:searchbar" %}" method="GET">
+        {{ searchbar }}
+      </form>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="{% url "logout" %}">Sign out</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li><h1></h1></li>
+              <li><h1></h1></li>
+              <li><h1></h1></li>
+              <li class="nav-item">
+                <a class="nav-link {% block dashboard %}{% endblock %} " href="{% url "dashboard" %}">
+                  <span data-feather="home"></span>
+                  Dashboard <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% block term %}{% endblock %}" href="{% url "Notes:term" %}">
+                  <span data-feather="file"></span>
+                  Terms
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% block course %}{% endblock %}" href="{% url "Notes:course" %}">
+                  <span data-feather="shopping-cart"></span>
+                  Courses
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% block notes %}{% endblock %} " href="{% url "Notes:notes_list" %}">
+                  <span data-feather="users"></span>
+                  Notes
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link {% block New %}{% endblock %} " href="{% url "Notes:notes" %}">
+                  <span data-feather="layers"></span>
+                  Add Note
+                </a>
+              </li>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Current Courses</span>
+              <a class="d-flex align-items-center text-muted" href="#">
+                <span data-feather="plus-circle"></span>
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              {% for course in current_courses %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url "Notes:course" %}{{ course.term.term_slug }}/{{ course.course_slug }}">
+                  <span data-feather="file-text"></span>
+                  {{ course.title }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">{% block header %}{% endblock %}{% block subheader %}{% endblock %}</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Print</button> -->
+                {% if editing %}
+                <a href="{% block done %}{% endblock %}"><button type="button" class="btn btn-sm btn-outline-secondary">Done</button></a>
+                {% elif dashboard %}
+                <a href="{% block dashview %}{% endblock %}"><button type="button" class="btn btn-sm btn-outline-secondary">Web API</button></a>
+                {% elif cancel_edit %}
+                <a href="{% block cancel %}{% endblock %}"><button type="button" class="btn btn-sm btn-outline-secondary">Cancel</button></a>
+                {% else %}
+                <a class = "edit" href="{% block edit %}{% endblock %}"><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+
+          {% block content %}
+
+          {% endblock %}
+
+    {% else %}
+    {% block register %}
+
+    {% endblock %}
+    {% endif %}
+
+  </body>
+</html>

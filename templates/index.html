@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% block register %}
+
+<!-- CSS -->
+<link rel="stylesheet" href="{% static "css/index.css" %}">
+
+<div class="container">
+  <div id = "loginbox" class="jumbotron">
+    <div class="container text-center">
+      <h3>Scribnotes</h3>
+      <p></p>
+    </div>
+    <div class="container">
+      <form class="" action="{% url "loginindex" %}" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="container text-center">
+          <input class ="btn btn-primary" type="submit" value="Log In">
+          <p></p>
+          <h6>Don't have an account?<a href="{% url "register" %}"> Sign up</a></h6>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

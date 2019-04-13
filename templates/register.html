@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% block register %}
+
+<!-- CSS -->
+<link rel="stylesheet" href="{% static "css/register.css" %}">
+
+<div id="outer-container" class="container">
+    <div id = "loginbox" class="jumbotron">
+      <div class="container">
+        <div class="container text-center">
+          <h3>Scribnotes</h3>
+        </div>
+        <form action="{% url "register" %}" method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <div class="container text-center">
+            <input class ="btn btn-primary" type="submit" value="Submit">
+          </div>
+        </form>
+        <p></p>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
