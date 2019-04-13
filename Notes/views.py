@@ -16,7 +16,7 @@ from .serializers import TermSerializer, CourseSerializer, ClassNoteSerializer
 def SearchBar(request):
     """
     Redirects active-user to a ClassNote object's DetailView given the data that
-    they provide to the searchbar. ClassNote object's are retrieved by
+    they provide to the searchbar. ClassNote objects are retrieved by
     title.
     """
     redirect_url = reverse_lazy('Notes:notes_list')
@@ -159,7 +159,7 @@ class UpdateOptionsTerm(FormView, ListView):
         """
         user = self.request.user
         terms = user.terms.all()
-        choices = [('', 'Select current term')] 
+        choices = [('', 'Select current term')]
         choices += [(i, j) for i, j in zip(terms, terms)]
         return choices
 
