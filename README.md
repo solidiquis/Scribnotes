@@ -15,13 +15,14 @@ Throughout my undergraduate career I was exposed to a panoply of different note-
 
 # Built with
 
-* [Django](https://www.djangoproject.com/) — Backend framework 
 * [Bootstrap](https://getbootstrap.com/) — Frontend framework 
+* [CKEditor](https://ckeditor.com/) — Rich text editor 
+* [Django](https://www.djangoproject.com/) — Backend framework 
+* [Django Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/) - Control over form rendering behavior 
 * [Django Rest Framework](https://www.django-rest-framework.org/) — Web-browsable API
 * [JQuery](https://jquery.com/) — Event listeners 
 * [SQLite](https://www.sqlite.org/index.html) – Database 
-* [CKEditor](https://ckeditor.com/) — Rich text editor 
-* [Django Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/) - Control over form rendering behavior 
+
 
 # Author 
 
