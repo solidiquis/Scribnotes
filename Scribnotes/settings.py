@@ -12,7 +12,7 @@ SECRET_KEY = os.environ['SCRIBNOTES_SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['scribnotesapp.scribnotes.com', 'localhost',]
+ALLOWED_HOSTS = ['scribnotesapp.herokuapp.com', 'localhost',]
 
 INSTALLED_APPS = [
     'crispy_forms',
