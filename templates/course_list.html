@@ -7,7 +7,7 @@
 
 {% block edit %}
 {% if single_term %}
-{% url "Notes:course_edit" %}{{ slug }}
+{% url "Notes:course_of_term_edit" slug=slug %}
 {% else %}
 {% url "Notes:course_edit" %}
 {% endif %}
