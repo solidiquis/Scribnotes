@@ -134,6 +134,22 @@ class UpdateNoteForm(forms.ModelForm):
     """
     Form for updating an existing ClassNote object.
     """
+    fields = ('title', 'body', 'course')
+
+    def __init__(self, *args, **kwargs):
+        """
+        HTML widget modification.
+        """
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].label = ''
+
+        self.fields['course'].widget.attrs.update({"class": "w-10"})
+        self.fields['title'].widget.attrs.update(
+            {"placeholder": "Please enter a title"}
+            )
+        self.fields['course'].empty_label = 'Select a course'
 
     class Meta():
         """

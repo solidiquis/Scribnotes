@@ -7,7 +7,7 @@ from .views import (CreateTermView, CreateCourseView, CoursesOfTermView,
                     UpdateOptionsCourse, DeleteCourseView,
                     CoursesOfTermEditView, UpdateCourseView, NoteUpdateOptions,
                     NotesOfCourseUpdateOptions,DeleteNoteView, UpdateNoteView,
-                    SearchBar,)
+                    SearchBar, NotesListSearchQuery, )
 
 app_name = 'Notes'
 
@@ -17,6 +17,11 @@ urlpatterns = [
          login_required(NotesList.as_view()),
          name = 'notes_list',
          ),
+    path(
+        'Courses/<notes_query>/',
+        login_required(NotesListSearchQuery.as_view()),
+        name = 'notes_search'
+        ),
     path(
         'Courses/All-Notes/Edit/',
         login_required(NoteUpdateOptions.as_view()),

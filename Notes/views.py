@@ -17,7 +17,9 @@ def SearchBar(request):
     """
     Redirects active-user to a ClassNote object's DetailView given the data that
     they provide to the searchbar. ClassNote objects are retrieved by
-    title.
+    title. If multiple matches are made, user is provided a list of all similar
+    hits; refer to NotesListSearchQuery class. If no matches can be made user is
+    shown all ClassNote objects.
     """
     redirect_url = reverse_lazy('Notes:notes_list')
 
@@ -29,12 +31,18 @@ def SearchBar(request):
         if notes:
             title = ''.join(request.GET['title'].lower().split(' '))
 
+            matches = []
             for note in notes:
                 if title in note.join_title():
                     course = note.course
                     term = course.term
                     args = [term.term_slug, course.course_slug, note.note_slug]
-                    redirect_url = reverse_lazy("Notes:one_note", args = args)
+                    redirect_url = reverse_lazy("Notes:one_note", args=args)
+                    matches.append(note.note_slug)
+
+            if len(matches) > 1:
+                args = ['+'.join(matches)]
+                redirect_url = reverse_lazy('Notes:notes_search', args=args)
 
     return HttpResponseRedirect(redirect_url)
 
@@ -751,3 +759,36 @@ class UpdateNoteView(UpdateView):
         context = super().get_context_data(**kwargs)
         context['cancel_edit'] = True
         return context
+
+class NotesListSearchQuery(ListView):
+    """
+    If multiple ClassNote object matches are made from the data the user
+    provides to the searchbar, this view will generate a queryset of all those
+    objects with similar titles.
+    """
+
+    template_name = "notes_list.html"
+    context_object_name = "notes"
+
+    def get_queryset(self):
+        """
+        Generates a queryset of all ClassNote objects that have a title whose
+        substring matches what the user provides to the searchbar.
+        """
+        slugs = self.kwargs['notes_query'].split('+')
+        user = self.request.user
+
+        queryset = None
+        for slug in slugs:
+            if queryset is None:
+                queryset = ClassNote.objects.filter(user=user, note_slug=slug)
+            else:
+                queryset = queryset | ClassNote.objects.filter(
+                    user=user,
+                    note_slug=slug,
+                    )
+
+        if len(queryset) == 0:
+            return HttpResponseRedirect('Notes:notes_list')
+
+        return queryset
