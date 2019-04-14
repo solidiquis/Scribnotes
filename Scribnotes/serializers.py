@@ -8,7 +8,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     """
     class Meta:
         """
-        Fields of Term instances that will get serialized/deserialized.
+        Fields of User instances that will get serialized/deserialized.
         """
         model = get_user_model()
         fields = ('username', 'date_joined')
