@@ -789,6 +789,6 @@ class NotesListSearchQuery(ListView):
                     )
 
         if len(queryset) == 0:
-            return HttpResponseRedirect('Notes:notes_list')
+            return HttpResponseRedirect(reverse_lazy('Notes:notes_list'))
 
         return queryset
