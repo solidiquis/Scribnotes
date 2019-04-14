@@ -33,7 +33,7 @@
       <th scope="row">{{ term.school }}</th>
       <td>{{ term.year }}</td>
       <td>{{ term.session }}</td>
-      <td><a href="{% url "Notes:course" %}{{ term.term_slug }}">View</a></td>
+      <td><a href="{% url "Notes:course_term" slug=term.term_slug %}">View</a></td>
     </tr>
     {% endfor %}
   </tbody>

@@ -33,7 +33,7 @@ urlpatterns = [
         name = 'note_delete'
         ),
     path(
-        'Courses/<slug>/',
+        'Courses/SingleCourse/<slug>/',
         login_required(CoursesOfTermView.as_view()),
         name = 'course_term'
         ),
