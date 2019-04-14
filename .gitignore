@@ -122,16 +122,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-# External package
-static/ckeditor
-
-# Django admin
-static/admin
-
-# Project Settings
-Scribnotes/settings.py
-
-# Deployment Files
-Procfile
-runtime.txt

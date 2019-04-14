@@ -1,0 +1,1 @@
+web: gunicorn Scribnotes.wsgi --log-file -
