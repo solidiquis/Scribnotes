@@ -30,7 +30,9 @@
         <td>{{ course.term }}</td>
         <form class="w-25" action="{% url "Notes:course_delete" course.course_slug %}" method="post">
           {% csrf_token %}
-          <td><a href="{% url "Notes:course_update" course.course_slug "ST" %}">Edit</a> | <input class = "delete_course" name="Submit" type="submit" value="Delete"></td>
+          <td>
+            <a href="{% url "Notes:course_update" course.course_slug "ST" %}">Edit</a> | <input class = "delete_course" name="Submit" type="submit" value="Delete">
+          </td>
         </form>
       </tr>
       {% endfor %}
