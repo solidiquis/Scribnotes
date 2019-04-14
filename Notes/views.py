@@ -766,7 +766,6 @@ class NotesListSearchQuery(ListView):
     provides to the searchbar, this view will generate a queryset of all those
     objects with similar titles.
     """
-
     template_name = "notes_list.html"
     context_object_name = "notes"
 
