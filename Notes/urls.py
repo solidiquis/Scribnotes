@@ -53,7 +53,7 @@ urlpatterns = [
         name = 'notes_of_course',
         ),
     path(
-        'Courses/<slug>/<course_id>/Edit',
+        'Courses/<slug>/<course_id>/Edit/',
         login_required(NotesOfCourseUpdateOptions.as_view()),
         name = 'notes_of_course_edit',
         ),
