@@ -121,6 +121,7 @@ STATICFILES_DIRS = [
     STATIC_DIR,
     ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 
 CKEDITOR_CONFIGS = {
     'ckeditor': {

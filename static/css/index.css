@@ -1,0 +1,20 @@
+h3 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 48px;
+}
+.col-form-label{
+  font-family: 'Fredoka One', cursive;
+  font-size: 15px;
+}
+h6{
+  font-family: 'Fredoka One', cursive;
+  font-size: 15px;
+}
+.jumbotron{
+  margin-top: 10%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+.btn{
+  width: 50%;
+}
