@@ -5,7 +5,7 @@
 {% block course %}active{% endblock %}
 {% block header %}Courses{% endblock %}
 {% block subheader %}{{ term_name }}{% endblock %}
-{% block done %}{% url "Notes:course" %}{{ slug }}{% endblock %}
+{% block done %}{% url "Notes:course_term" slug=slug %}{% endblock %}
 
 {% block content %}
 
