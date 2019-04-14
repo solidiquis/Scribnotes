@@ -10,7 +10,7 @@ STATIC_DIR = os.path.join(STATIC_ROOT, 'notes')
 SECRET_KEY = os.environ['SCRIBNOTES_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['scribnotesapp.herokuapp.com', 'localhost',]
 
