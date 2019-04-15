@@ -28,6 +28,9 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+# Database
+db.sqlite3
+
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
@@ -58,7 +61,7 @@ coverage.xml
 # Django stuff:
 *.log
 local_settings.py
-db.sqlite3
+
 
 # Flask stuff:
 instance/
@@ -122,3 +125,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Static
+static/admin
+static/ckeditor
+static/rest_framework
+static/staticfiles.json
