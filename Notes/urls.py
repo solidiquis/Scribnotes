@@ -16,7 +16,7 @@ urlpatterns = [
         'Courses/All-Notes/',
          login_required(NotesList.as_view()),
          name = 'notes_list',
-         ),
+        ),
     path(
         'Courses/<notes_query>/',
         login_required(NotesListSearchQuery.as_view()),
